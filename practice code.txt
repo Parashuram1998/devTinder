@@ -1,0 +1,24 @@
+// app.get('/user',(req,res) => {
+//     res.send({firstname : 'Parasharam', lastname : 'Pujari'});
+// });
+
+// app.post("/user", (req, res) => {
+//     res.send("User added successfully");
+// })
+
+// app.delete('/user', (req,res) => {
+//     res.send("User deleted successfully");
+// })
+
+//Route Handlers
+// app.use('/user', (req,res,next) => {
+//     console.log("Request 1");
+//     //res.send("Response from 1st Route Handler");
+//     next();
+// },(req,res, next) => {
+//     console.log("Request 2");
+//     res.send("Response from 2nd Route Handler");
+//     next();    
+// },(req,res,next) => {
+//     //res.send("Response from 3rd Route Handler");
+// })
