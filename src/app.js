@@ -32,8 +32,7 @@ app.get("/userByEmail", async (req, res) => {
             res.status(404).send("User not found");
         }else{
             res.send(user);
-        }
-        
+        }        
     }
     catch(err){
         console.log("Something went wrong!! " + err.message);
@@ -49,8 +48,7 @@ app.get("/feed", async (req, res) => {
             res.status(404).send("Users not found");
         }else{
             res.send(users);
-        }
-        
+        }        
     }
     catch(err){
         console.log("Something went wrong!! " + err.message);
@@ -74,14 +72,23 @@ app.delete("/user", async (req, res) => {
 })
 
 //Update the user
-app.patch("/user", async (req,res) => {
-    const userId = req.body.userId;
+app.patch("/user/:userId", async (req,res) => {
+    const userId = req.params?.userId;
     const data = req.body;
 
-    console.log(data);
-
     try{
-        await User.findByIdAndUpdate({_id: userId}, data);
+            const AllowedUpdates = ["gender","password","about","skills","photoUrl"];
+            const isUpdateAllowed = Object.keys(data).every((k) => AllowedUpdates.includes(k));
+
+            if(!isUpdateAllowed){
+                throw new Error("Update not allowed");
+            }
+
+            if(data?.skills.length > 10){
+                throw new Error("Skills cannot be more than 10");
+            }
+
+        await User.findByIdAndUpdate({_id: userId}, data, {returnDocument : "after", runValidators : true});
         res.send("User updated successfully!!");
     }catch(err){
         console.log("Something went wrong!! " + err.message);
