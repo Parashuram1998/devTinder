@@ -62,6 +62,8 @@ const userSchema = new mongoose.Schema(
     },
     skills: {
       type: [String],
+      minItems: 0,
+      maxItems: 10,
     },
   },
   {
