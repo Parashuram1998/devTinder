@@ -23,10 +23,9 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
       throw new Error("Edit data is not valid");
     }
     const user = req.user;
-    const loggedInUser = user.firstName;
     Object.keys(req.body).forEach((key) => (user[key] = req.body[key]));
     await user.save();
-    res.send(loggedInUser + " your profile updated successfully!!");
+    res.send(user);
   } catch (err) {
     res.status(400).send("ERROR : " + err.message);
   }
