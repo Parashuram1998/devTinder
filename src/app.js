@@ -3,6 +3,7 @@ const connectDB = require("./config/database");
 const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+require("dotenv").config();
 
 //using express.json() we will be able to get all the json data present in request body converted into JS object
 app.use(express.json());
@@ -28,7 +29,7 @@ connectDB()
   .then(() => {
     console.log("Database connection established");
 
-    app.listen(7777, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Server is successfully running on port 7777");
     });
   })
